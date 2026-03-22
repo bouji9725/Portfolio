@@ -22,26 +22,49 @@ const ContactMeSection = () => {
   const { onOpen } = useAlertContext();
 
   const fieldStyles = {
-  bg: "whiteAlpha.500",
+  backgroundColor: "whiteAlpha.500",
   color: "black",
   border: "1px solid",
   borderColor: "whiteAlpha.400",
   transition: "all 0.2s ease",
 
+  _hover: {
+    backgroundColor: "whiteAlpha.500",
+  },
+
   _focus: {
-    bg: "whiteAlpha.600",
+    backgroundColor: "whiteAlpha.600",
     borderColor: "purple.300",
     boxShadow: "0 0 0 1px rgba(159, 122, 234, 0.6)",
   },
 
-  _hover: {
-    bg: "whiteAlpha.500",
+  _focusVisible: {
+    backgroundColor: "whiteAlpha.600",
+    borderColor: "purple.300",
+    boxShadow: "0 0 0 1px rgba(159, 122, 234, 0.6)",
   },
 
   _active: {
-    bg: "whiteAlpha.600",
+    backgroundColor: "whiteAlpha.600",
+  },
+
+  sx: {
+    "&:-webkit-autofill": {
+      WebkitBoxShadow: "0 0 0 1000px rgba(255,255,255,0.3) inset",
+      WebkitTextFillColor: "#000",
+      transition: "background-color 9999s ease-in-out 0s",
+    },
+    "&:-webkit-autofill:focus": {
+      WebkitBoxShadow: "0 0 0 1000px rgba(255,255,255,0.4) inset",
+      WebkitTextFillColor: "#000",
+    },
   },
 };
+
+  const optionStyles = {
+    backgroundColor: "#9f7aeae5",
+    color: "white",
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -50,12 +73,8 @@ const ContactMeSection = () => {
       type: "hireMe",
       comment: "",
     },
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       await submit(values);
-
-      if (response && response.type === "success") {
-        resetForm();
-      }
     },
     validationSchema: Yup.object({
       firstName: Yup.string().trim().required("Name is required"),
@@ -87,8 +106,14 @@ const ContactMeSection = () => {
       py={16}
       spacing={8}
     >
-      <VStack w="1024px" p={32} alignItems="flex-start">
-        <Heading as="h1" id="contactme-section" color="white">
+      <VStack w="1024px" p={32}>
+        <Heading
+          as="h1"
+          id="contactme-section"
+          color="white"
+          fontFamily="'Orbitron', sans-serif"
+          textAlign="center"
+        >
           Contact me
         </Heading>
 
@@ -146,11 +171,18 @@ const ContactMeSection = () => {
                   onBlur={formik.handleBlur}
                   {...fieldStyles}
                 >
-                  <option value="hireMe">Freelance project proposal</option>
-                  <option value="openSource">
+                  <option value="hireMe" style={optionStyles}>
+                    Freelance project proposal
+                  </option>
+                  <option value="openSource" style={optionStyles}>
                     Open source consultancy session
                   </option>
-                  <option value="other">Other</option>
+                  <option value="fixContract" style={optionStyles}>
+                    Fix contract proposal
+                  </option>
+                  <option value="other" style={optionStyles}>
+                    Other
+                  </option>
                 </Select>
                 <FormErrorMessage>{formik.errors.type}</FormErrorMessage>
               </FormControl>
