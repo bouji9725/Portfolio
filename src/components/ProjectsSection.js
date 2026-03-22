@@ -118,14 +118,14 @@ const ProjectsSection = () => {
                   isVisible
                     ? "translateX(0)"
                     : isLeftColumn
-                    ? "translateX(-80px)"
-                    : "translateX(80px)"
+                    ? "translateX(-120px)"
+                    : "translateX(120px)"
                 }
                 animation={
                   isVisible
                     ? isLeftColumn
-                      ? "slideInFromLeft 0.8s ease-out forwards"
-                      : "slideInFromRight 0.8s ease-out forwards"
+                      ? "slideInFromLeft 1.8s ease-out forwards"
+                      : "slideInFromRight 1.8s ease-out forwards"
                     : "none"
                 }
               >
