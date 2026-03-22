@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import FullScreenSection from "./FullScreenSection";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Center, Heading } from "@chakra-ui/react";
 import Card from "./Card";
 
 const projects = [
@@ -93,7 +93,7 @@ const ProjectsSection = () => {
       </style>
 
       <Box ref={sectionRef} width="100%">
-        <Heading as="h1" id="projects-section" color="white" mb={8}>
+        <Heading as="h1" id="projects-section" color="white" mb={8} fontFamily="'Orbitron', sans-serif" textAlign="center">
           Featured Projects
         </Heading>
 

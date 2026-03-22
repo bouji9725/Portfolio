@@ -22,11 +22,12 @@ const Card = ({ title, description, imageSrc }) => {
       />
 
       <VStack alignItems="flex-start" spacing={3} width="100%">
-        <Heading as="h3" size="md" color="white">
+        <Heading fontFamily="'Orbitron', sans-serif" as="h3" size="md" color="ap
+        lpha.900">
           {title}
         </Heading>
-
-        <Text color="gray.200" fontSize="md">
+/* "'Orbitron', sans-serif" */
+        <Text fontFamily="'Space Grotesk', sans-serif" color="gray.200" fontSize="md">
           {description}
         </Text>
 
