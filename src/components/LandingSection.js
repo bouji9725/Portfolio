@@ -17,7 +17,7 @@ const LandingSection = () => (
     position="relative"
     overflow="hidden"
     isDarkBackground
-    // bgGradient="linear(to-b, #230a3c 0%, #1a0933 40%, #0f0720 100%)"
+  // bgGradient="linear(to-b, #230a3c 0%, #1a0933 40%, #0f0720 100%)"
   >
     {/* FULL SECTION BACKGROUND LAYER */}
     <Box
@@ -53,7 +53,7 @@ const LandingSection = () => (
         <Avatar
           size="2xl"
           name="Isler"
-          src="https://i.pravatar.cc/300?img=12"
+          src={require("../images/app avatar.png")}
         />
 
         <VStack spacing={2}>

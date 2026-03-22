@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FullScreenSection from "./FullScreenSection";
 import { Box, Heading } from "@chakra-ui/react";
 import Card from "./Card";
@@ -31,34 +31,116 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const checkVisibility = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const triggerPoint = window.innerHeight * 0.85;
+
+      if (rect.top < triggerPoint && rect.bottom > 0) {
+  setIsVisible(true);
+} else {
+  setIsVisible(false);
+}
+    };
+
+    checkVisibility();
+    window.addEventListener("scroll", checkVisibility);
+    window.addEventListener("resize", checkVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", checkVisibility);
+      window.removeEventListener("resize", checkVisibility);
+    };
+  }, [isVisible]);
+
   return (
     <FullScreenSection
-       //bgGradient="linear(to-b, #230a3c, #1a0933, #0f0720)"
       isDarkBackground
+      backgroundColor="transparent"
       p={8}
       alignItems="flex-start"
       spacing={8}
     >
-      <Heading as="h1" id="projects-section">
-        Featured Projects
-      </Heading>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(2,minmax(0,1fr))"
-        gridGap={8}
-      >
-        {projects.map((project) => (
-          <Card
-            key={project.title}
-            title={project.title}
-            description={project.description}
-            imageSrc={project.getImageSrc()}
-          />
-        ))}
+      <style>
+        {`
+          @keyframes slideInFromLeft {
+            from {
+              opacity: 0;
+              transform: translateX(-80px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+
+          @keyframes slideInFromRight {
+            from {
+              opacity: 0;
+              transform: translateX(80px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+        `}
+      </style>
+
+      <Box ref={sectionRef} width="100%">
+        <Heading as="h1" id="projects-section" color="white" mb={8}>
+          Featured Projects
+        </Heading>
+
+        <Box
+          width="100%"
+          display="grid"
+          gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+          gap={8}
+        >
+          {projects.map((project, index) => {
+            const isLeftColumn = index % 2 === 0;
+
+            return (
+              <Box
+                key={project.title}
+                backgroundColor="rgba(255, 255, 255, 0.08)"
+                borderRadius="xl"
+                overflow="hidden"
+                boxShadow="lg"
+                opacity={isVisible ? 1 : 0}
+                transform={
+                  isVisible
+                    ? "translateX(0)"
+                    : isLeftColumn
+                    ? "translateX(-80px)"
+                    : "translateX(80px)"
+                }
+                animation={
+                  isVisible
+                    ? isLeftColumn
+                      ? "slideInFromLeft 0.8s ease-out forwards"
+                      : "slideInFromRight 0.8s ease-out forwards"
+                    : "none"
+                }
+              >
+                <Card
+                  title={project.title}
+                  description={project.description}
+                  imageSrc={project.getImageSrc()}
+                />
+              </Box>
+            );
+          })}
+        </Box>
       </Box>
     </FullScreenSection>
   );
 };
 
 export default ProjectsSection;
-//background="linear-gradient(to-b, #230a3c 0%, #1a0933 40%, #0f0720 100%)"
