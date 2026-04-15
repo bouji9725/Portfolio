@@ -53,7 +53,7 @@ export default function ProjectsSection() {
     <Section id="projects-section" refProp={sectionRef}>
       <SectionFrame
         tintClassName={`${theme.sectionTints.projects}/85`}
-        className="backdrop-blur-[2px]"
+        className="backdrop-blur-[1px]"
       >
         <Container>
           <SectionHeading>Featured Projects</SectionHeading>

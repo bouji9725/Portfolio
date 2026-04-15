@@ -17,9 +17,9 @@ export const projects: Project[] = [
     description:
       "A workout and progress tracking application focused on structured training sessions, overload tracking, and scalable frontend architecture.",
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    githubUrl: "https://github.com/your-username/fitness-app",
-    liveUrl: "https://your-vercel-fitness-demo.vercel.app",
-    imageUrl: "/projects/fitness-saas.png",
+    githubUrl: "https://github.com/bouji9725/Fitness.git",
+    liveUrl: "https://fitness-seven-sage.vercel.app/",
+    imageUrl: "/fitness-app.png",
     featured: true,
     highlights: [
       "Workout session state management",
@@ -33,9 +33,9 @@ export const projects: Project[] = [
     description:
       "A professional educational website designed to present services, improve communication, and support a polished digital presence.",
     techStack: ["React", "TypeScript", "Tailwind CSS"],
-    githubUrl: "https://github.com/your-username/teacher-platform",
-    liveUrl: "https://your-vercel-teacher-demo.vercel.app",
-    imageUrl: "/projects/teacher-platform.png",
+    githubUrl: "https://github.com/bouji9725/Primary-Teacher.git",
+    liveUrl: "https://primary-teacher.vercel.app/",
+    imageUrl: "/teacher-app.png",
     featured: true,
     highlights: [
       "Responsive marketing pages",

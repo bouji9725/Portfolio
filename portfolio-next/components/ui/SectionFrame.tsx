@@ -7,13 +7,15 @@ type SectionFrameProps = {
 };
 
 /**
- * Shared section background shell.
+ * Shared full-width section shell.
  *
- * Control here:
- * - section tint color
- * - frame border/shadow
- * - section spacing
- * - blur / overlay feel
+ * What to control here:
+ * - section background color via `tintClassName`
+ * - vertical spacing via `theme.spacing.sectionY`
+ * - any extra section-specific classes via `className`
+ *
+ * IMPORTANT:
+ * - Do NOT add borders/shadows here if you want to stay close to main branch.
  */
 export default function SectionFrame({
   children,
@@ -21,9 +23,7 @@ export default function SectionFrame({
   className = "",
 }: SectionFrameProps) {
   return (
-    <div
-      className={`${tintClassName} ${theme.spacing.sectionY} ${theme.surfaces.frame} ${className}`}
-    >
+    <div className={`${tintClassName} ${theme.spacing.sectionY} ${className}`}>
       {children}
     </div>
   );

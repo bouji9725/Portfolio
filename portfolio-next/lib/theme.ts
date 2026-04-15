@@ -2,15 +2,15 @@ export const theme = {
   sectionTints: {
     hero: "bg-[#3d557d]",
     about: "bg-transparent",
-    projects: "bg-[#285f36]",
-    contact: "bg-[#5b2c83]",
-    footer: "bg-[#18181b]",
-    header: "bg-[#18181b]",
+    projects: "bg-[ #588b9b]",
+    contact: "bg-[ #5b2c83]",
+    footer: "bg-[ #18181b]",
+    header: "bg-gradient-to-b from-[#5b2c83] via-[ #3d557d] to-[ #18181b]",
   },
 
   surfaces: {
     softOverlay: "bg-black/20 backdrop-blur-[2px]",
-    card: "bg-white text-slate-900 shadow-[0_8px_24px_rgba(0,0,0,0.22)]",
+    card: "bg-white/10 backdrop-blur-md text-white shadow-[0_8px_24px_rgba(0,0,0,0.22)]",
     frame: "border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.18)]",
   },
 

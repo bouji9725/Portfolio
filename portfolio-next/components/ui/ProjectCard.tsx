@@ -48,9 +48,9 @@ export default function ProjectCard({
 
         {/* Card content */}
         <div className="p-6">
-          <h3 className="text-2xl font-bold text-slate-900">{project.title}</h3>
+          <h3 className="text-2xl font-bold text-slate-400">{project.title}</h3>
 
-          <p className="mt-4 text-sm leading-7 text-slate-600">
+          <p className="mt-4 text-sm leading-7 text-slate-400">
             {project.description}
           </p>
 
@@ -62,7 +62,7 @@ export default function ProjectCard({
             ))}
           </ul>
 
-          <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium text-slate-900">
+          <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium text-slate-300">
             <a
               href={project.githubUrl}
               target="_blank"
