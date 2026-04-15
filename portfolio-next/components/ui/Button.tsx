@@ -1,14 +1,21 @@
 type ButtonProps = {
   children: React.ReactNode;
   href?: string;
+  variant?: "primary" | "secondary";
 };
 
-export default function Button({ children, href }: ButtonProps) {
+export default function Button({
+  children,
+  href,
+  variant = "primary",
+}: ButtonProps) {
   const baseStyles =
     "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-medium transition";
 
   const variantStyles =
-    "bg-slate-900 text-white hover:bg-slate-700";
+    variant === "primary"
+      ? "bg-slate-900 text-white hover:bg-slate-700"
+      : "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50";
 
   if (href) {
     return (
@@ -18,9 +25,5 @@ export default function Button({ children, href }: ButtonProps) {
     );
   }
 
-  return (
-    <button className={`${baseStyles} ${variantStyles}`}>
-      {children}
-    </button>
-  );
+  return <button className={`${baseStyles} ${variantStyles}`}>{children}</button>;
 }

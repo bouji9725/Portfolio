@@ -1,18 +1,34 @@
+import Image from "next/image";
+import Container from "@/components/layout/Container";
+import Section from "@/components/layout/Section";
+
 export default function HeroSection() {
   return (
-    <section id="hero" className="py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <p className="text-sm font-medium uppercase tracking-wide">
-          Frontend Developer
-        </p>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
-          Abdelrahman Isler
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-slate-600">
-          I build modern, responsive web applications with React, Next.js,
-          TypeScript, and Tailwind CSS.
-        </p>
+    <Section id="hero">
+      <div className="bg-[var(--hero-bg)]">
+        <Container>
+          <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-20 text-center">
+            <div className="overflow-hidden rounded-full border-4 border-white/20 shadow-lg">
+              <Image
+                src="/profile-image.png"
+                alt="Portrait of Abdelrahman Isler"
+                width={160}
+                height={160}
+                className="h-40 w-40 object-cover"
+                priority
+              />
+            </div>
+
+            <p className="mt-8 text-base text-[var(--text-main)]">
+              Hi, I am Abdelrahman!
+            </p>
+
+            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-[var(--text-main)] sm:text-5xl md:text-6xl">
+              A frontend developer specialised in React
+            </h1>
+          </div>
+        </Container>
       </div>
-    </section>
+    </Section>
   );
 }
