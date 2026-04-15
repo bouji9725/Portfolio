@@ -4,12 +4,21 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { projects } from "@/data/projects";
 
+/**
+ * Projects section.
+ *
+ * What to control here:
+ * - section spacing -> py-20
+ * - section background tint -> bg-[#123c32]/70
+ * - card grid columns -> md:grid-cols-2
+ * - gap between cards -> gap-8
+ */
 export default function ProjectsSection() {
   const featuredProjects = projects.filter((project) => project.featured);
 
   return (
-    <Section id="projects">
-      <div className="bg-[var(--projects-bg)] py-20">
+    <Section id="projects" className="py-20">
+      <div className="bg-[#123c32]/70 py-20 backdrop-blur-[2px]">
         <Container>
           <SectionHeading>Featured Projects</SectionHeading>
 

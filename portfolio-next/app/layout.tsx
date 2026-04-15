@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SiteBackground from "@/components/layout/SiteBackground";
 
 export const metadata: Metadata = {
   title: "Abdelrahman Isler | Frontend Developer",
@@ -16,10 +17,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-white text-slate-900 antialiased">
-        <Header />
-        {children}
-        <Footer />
+      <body className="relative min-h-screen bg-[var(--background)] text-white antialiased">
+        {/* Fixed visual background behind the entire site */}
+        <SiteBackground />
+
+        {/* Main visible app layer above the background */}
+        <div className="relative z-10">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

@@ -2,33 +2,37 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 
+
 export default function HeroSection() {
   return (
-    <Section id="hero">
-      <div className="bg-[var(--hero-bg)]">
-        <Container>
-          <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center py-20 text-center">
-            <div className="overflow-hidden rounded-full border-4 border-white/20 shadow-lg">
-              <Image
-                src="/profile-image.png"
-                alt="Portrait of Abdelrahman Isler"
-                width={160}
-                height={160}
-                className="h-40 w-40 object-cover"
-                priority
-              />
-            </div>
+    <Section
+      id="hero"
+      className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-[var(--hero-bg)]"
+    >
+      
 
-            <p className="mt-8 text-base text-[var(--text-main)]">
-              Hi, I am Abdelrahman!
-            </p>
-
-            <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-[var(--text-main)] sm:text-5xl md:text-6xl">
-              A frontend developer specialised in React
-            </h1>
+      <Container>
+        <div className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
+          <div className="overflow-hidden rounded-full border-4 border-white/20 shadow-xl">
+            <Image
+              src="/profile-image.png"
+              alt="Portrait of Abdelrahman Isler"
+              width={180}
+              height={180}
+              className="h-40 w-40 object-cover sm:h-44 sm:w-44"
+              priority
+            />
           </div>
-        </Container>
-      </div>
+
+          <p className="mt-6 text-sm text-white/85 sm:text-base">
+            Hi, I am Abdelrahman!
+          </p>
+
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+            A frontend developer specialised in React
+          </h1>
+        </div>
+      </Container>
     </Section>
   );
 }

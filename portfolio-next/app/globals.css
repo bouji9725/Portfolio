@@ -1,30 +1,79 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 html {
   scroll-behavior: smooth;
 }
+
+:root {
+  --background: #05070b;
+  --foreground: #ffffff;
+
+  --header-bg: #18181b;
+  --footer-bg: #18181b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+main {
+  min-height: 100vh;
+}
+
+/* Left-moving binary row */
+@keyframes binaryScrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-160px);
+  }
+}
+
+/* Right-moving binary row */
+@keyframes binaryScrollRight {
+  0% {
+    transform: translateX(-160px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Shared binary row styling */
+.binary-row {
+  margin: 0;
+  line-height: 1;
+}
+
+/* Even rows move left */
+.binary-row-left {
+  animation: binaryScrollLeft 10s linear infinite;
+}
+
+/* Odd rows move right */
+.binary-row-right {
+  animation: binaryScrollRight 10s linear infinite;
+}  
