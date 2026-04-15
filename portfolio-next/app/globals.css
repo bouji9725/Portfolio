@@ -65,15 +65,15 @@ main {
 /* Shared binary row styling */
 .binary-row {
   margin: 0;
-  line-height: 1;
+  
 }
 
 /* Even rows move left */
 .binary-row-left {
-  animation: binaryScrollLeft 10s linear infinite;
+  animation: binaryScrollLeft 2s linear infinite;
 }
 
 /* Odd rows move right */
 .binary-row-right {
-  animation: binaryScrollRight 10s linear infinite;
+  animation: binaryScrollRight 2s linear infinite;
 }  

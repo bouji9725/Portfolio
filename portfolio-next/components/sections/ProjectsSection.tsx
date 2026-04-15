@@ -18,7 +18,7 @@ export default function ProjectsSection() {
 
   return (
     <Section id="projects" className="py-20">
-      <div className="bg-[#123c32]/70 py-20 backdrop-blur-[2px]">
+      <div className=" py-20 backdrop-blur-[2px]">
         <Container>
           <SectionHeading>Featured Projects</SectionHeading>
 
