@@ -1,6 +1,6 @@
 export default function AboutSection() {
   return (
-    <section id="about" className="py-20" aligncontent = "center">
+    <section id="about" className="py-20" >
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="text-2xl font-semibold">About</h2>
         <div className="mt-4 max-w-3xl space-y-4 text-slate-100">
