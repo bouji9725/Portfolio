@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
-import type { ContactApiResponse } from "@/types/api/contact";
-import {
-  contactFormSchema,
-  mapZodErrorsToFieldErrors,
-} from "@/validation/contact.schema";
+import type { ContactApiResponse } from "../../../types/api/contact";
+import { submitContact } from "../../../lib/server/contact/submit-contact";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -19,25 +16,9 @@ export async function POST(request: Request) {
     return NextResponse.json(response, { status: 400 });
   }
 
-  const result = contactFormSchema.safeParse(body);
-
-  if (!result.success) {
-    const response: ContactApiResponse = {
-      success: false,
-      message: "Please correct the highlighted fields.",
-      fieldErrors: mapZodErrorsToFieldErrors(result.error),
-    };
-
-    return NextResponse.json(response, { status: 400 });
-  }
-
   try {
-    const response: ContactApiResponse = {
-      success: true,
-      message: "Your message has been sent.",
-    };
-
-    return NextResponse.json(response, { status: 200 });
+    const { status, response } = await submitContact(body);
+    return NextResponse.json(response, { status });
   } catch {
     const response: ContactApiResponse = {
       success: false,
