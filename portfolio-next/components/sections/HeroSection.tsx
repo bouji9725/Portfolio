@@ -210,7 +210,7 @@ export default function HeroSection() {
             flex min-h-[calc(100vh-9rem)] 
             flex-col items-center justify-center 
             text-center 
-            bg-purple-500/10
+            bg-purple-900/10
           "
         >
           {/* 

@@ -31,8 +31,8 @@ export default function ProjectCard({
 
   return (
     <div
-      className={`transition-all duration-700 ease-out ${
-        isVisible ? "translate-x-0 opacity-100" : `${hiddenTransform} opacity-0`
+      className={`transition-all duration-900 ease-out ${
+        isVisible ? "translate-x-0 opacity-900" : `${hiddenTransform} opacity-0`
       }`}
     >
       <CardShell className="overflow-hidden p-0">

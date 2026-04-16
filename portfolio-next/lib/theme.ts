@@ -5,9 +5,9 @@ export const theme = {
     projects: "bg-[ #588b9b]",
     contact: "bg-[ #5b2c83]",
     footer: "bg-[ #18181b]",
-    header: "bg-gradient-to-b from-[#5b2c83] via-[ #3d557d] to-[ #18181b]",
+    header: "bg-gradient-to-b from-[#150d1b] via-[ #050b16] to-[ #18181b]",
   },
-
+// #5b2c83
   surfaces: {
     softOverlay: "bg-black/20 backdrop-blur-[2px]",
     card: "bg-white/10 backdrop-blur-md text-white shadow-[0_8px_24px_rgba(0,0,0,0.22)]",
