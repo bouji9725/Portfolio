@@ -1,3 +1,6 @@
+import { emailClient } from "@/lib/server/email/email-client";
+import { serverEnv } from "@/lib/server/env/server-env";
+
 export type SendContactEmailInput = {
   name: string;
   email: string;
@@ -10,12 +13,22 @@ export async function sendContactEmail(
 ): Promise<void> {
   const { name, email, subject, message } = input;
 
-  // Temporary stub for Phase 3.
-  // In Phase 4, this will call the real email provider client.
-  console.log("Sending contact email:", {
-    to: "configured via env later",
-    from: email,
-    subject,
-    text: `From: ${name} <${email}>\n\n${message}`,
+  const { error } = await emailClient.emails.send({
+    from: `Portfolio Contact <${serverEnv.CONTACT_FROM_EMAIL}>`,
+    to: [serverEnv.CONTACT_TO_EMAIL],
+    subject: `[Portfolio Contact] ${subject}`,
+    replyTo: email,
+    text: [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      "",
+      "Message:",
+      message,
+    ].join("\n"),
   });
+
+  if (error) {
+  console.error("Resend error:", error);
+  throw new Error(`Failed to send contact email: ${error.message}`);
+}
 }

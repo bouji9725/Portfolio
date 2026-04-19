@@ -21,4 +21,4 @@ export const serverEnv = serverEnvSchema.parse({
   CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL,
   CONTACT_FROM_EMAIL: process.env.CONTACT_FROM_EMAIL,
   EMAIL_PROVIDER_API_KEY: process.env.EMAIL_PROVIDER_API_KEY,
-});
+}); 

@@ -1,7 +1,9 @@
 import { sendContactEmail } from "@/lib/server/email/send-contact-email";
 import type { ContactApiResponse } from "@/types/api/contact";
-import { contactFormSchema } from "@/validation/contact.schema";
-import { mapZodErrorsToFieldErrors } from "@/validation/contact.schema";
+import {
+  contactFormSchema,
+  mapZodErrorsToFieldErrors,
+} from "@/validation/contact.schema";
 
 export async function submitContact(
   body: unknown

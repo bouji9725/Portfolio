@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import type { ContactApiResponse } from "../../../types/api/contact";
-import { submitContact } from "../../../lib/server/contact/submit-contact";
+import type { ContactApiResponse } from "@/types/api/contact";
+import { submitContact } from "@/lib/server/contact/submit-contact";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -19,7 +19,8 @@ export async function POST(request: Request) {
   try {
     const { status, response } = await submitContact(body);
     return NextResponse.json(response, { status });
-  } catch {
+  } catch (error) {
+  console.error("API ERROR:", error);
     const response: ContactApiResponse = {
       success: false,
       message: "Something went wrong. Please try again later.",
