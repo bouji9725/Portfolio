@@ -4,10 +4,56 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SiteBackground from "@/components/layout/SiteBackground";
 
+// Root metadata for the whole portfolio site.
+// This controls the default title, description, social sharing,
+// robots behavior, and the base URL used for absolute metadata links.
 export const metadata: Metadata = {
-  title: "Abdelrahman Isler | Frontend Developer",
+  // metadataBase helps Next.js build full absolute URLs for metadata
+  // like canonical URLs and social image references.
+  metadataBase: new URL("https://www.a-isler.com"),
+
+  // Default title and reusable title template for future pages.
+  title: {
+    default: "Abdelrahman Isler | Frontend Developer",
+    template: "%s | Abdelrahman Isler",
+  },
+
+  // Main SEO description for the site.
   description:
-    "Portfolio of Abdelrahman Isler, a frontend developer building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+    "Frontend developer portfolio of Abdelrahman Isler, focused on building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+
+  // Search engine indexing behavior.
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  // Open Graph metadata for rich sharing previews on platforms
+  // like LinkedIn, WhatsApp, Facebook, and many messaging apps.
+  openGraph: {
+    title: "Abdelrahman Isler | Frontend Developer",
+    description:
+      "Frontend developer building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+    url: "https://www.a-isler.com",
+    siteName: "Abdelrahman Isler Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
+
+  // Twitter/X sharing metadata.
+  // The large summary card gives a stronger preview if supported.
+  twitter: {
+    card: "summary_large_image",
+    title: "Abdelrahman Isler | Frontend Developer",
+    description:
+      "Frontend developer building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+  },
+
+  // Basic application identity.
+  applicationName: "Abdelrahman Isler Portfolio",
+
+  // Optional category helps classify the site.
+  category: "technology",
 };
 
 export default function RootLayout({
