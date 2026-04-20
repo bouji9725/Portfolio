@@ -14,6 +14,7 @@ export async function sendContactEmail(
   const { name, email, subject, message } = input;
 
   const { error } = await emailClient.emails.send({
+    // Friendly branded sender name for better inbox presentation
     from: `Portfolio Contact <${serverEnv.CONTACT_FROM_EMAIL}>`,
     to: [serverEnv.CONTACT_TO_EMAIL],
     subject: `[Portfolio Contact] ${subject}`,
@@ -28,7 +29,6 @@ export async function sendContactEmail(
   });
 
   if (error) {
-  console.error("Resend error:", error);
-  throw new Error(`Failed to send contact email: ${error.message}`);
-}
+    throw new Error(`Failed to send contact email: ${error.message}`);
+  }
 }
