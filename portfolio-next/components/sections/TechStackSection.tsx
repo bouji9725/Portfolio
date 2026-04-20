@@ -1,10 +1,12 @@
+import SectionHeading from "@/components/ui/SectionHeading";
+
 const techStack = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Git"];
 
 export default function TechStackSection() {
   return (
     <section id="stack" className="py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-2xl font-semibold">Tech Stack</h2>
+        <SectionHeading>Tech Stack</SectionHeading>
         <div className="mt-6 flex flex-wrap gap-3">
           {techStack.map((tech) => (
             <span

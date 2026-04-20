@@ -1,8 +1,10 @@
+import SectionHeading from "@/components/ui/SectionHeading";
+
 export default function AboutSection() {
   return (
     <section id="about" className="py-20" >
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-2xl font-semibold">About</h2>
+        <SectionHeading>About</SectionHeading>
         <div className="mt-4 max-w-3xl space-y-4 text-slate-100">
           <div className="flex items-start gap-3">
             <span className="mt-1 text-purple-300">•</span>
