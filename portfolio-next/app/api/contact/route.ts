@@ -17,10 +17,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { status, response } = await submitContact(body);
+    const { status, response } = await submitContact(request, body);
     return NextResponse.json(response, { status });
   } catch (error) {
-  console.error("API ERROR:", error);
+    console.error("API ERROR:", error);
+
     const response: ContactApiResponse = {
       success: false,
       message: "Something went wrong. Please try again later.",
