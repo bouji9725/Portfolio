@@ -1,5 +1,20 @@
 "use client";
 
+/**
+ * PROJECTS SECTION
+ *
+ * This file controls:
+ * - featured project listing on the homepage
+ * - reveal animation trigger based on viewport visibility
+ * - intro text above the project cards
+ * - project card ordering and animation direction
+ *
+ * Important:
+ * - background styling should come from shared theme classes
+ * - section ref should use the shared Section API
+ * - project content itself comes from data/projects.ts
+ */
+
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
@@ -9,23 +24,34 @@ import SectionFrame from "@/components/ui/SectionFrame";
 import { projects } from "@/data/projects";
 import { theme } from "@/lib/theme";
 
-/**
- * Projects section modeled after the main branch behavior.
- *
- * What to control here:
- * - section reveal trigger -> triggerPoint
- * - section tint -> theme.sectionTints.projects
- * - grid spacing -> gap-8
- * - animation direction -> based on index parity
- * - animation tempo -> duration class in ProjectCard
- */
 export default function ProjectsSection() {
+  /**
+   * Section ref used to detect when the section enters the viewport.
+   */
   const sectionRef = useRef<HTMLElement | null>(null);
+
+  /**
+   * Visibility state used to trigger card entrance animations.
+   */
   const [isVisible, setIsVisible] = useState(false);
 
+  /**
+   * Only show featured projects on the homepage.
+   *
+   * Full project detail content still exists in data/projects.ts,
+   * but the homepage should stay focused and easy to scan.
+   */
   const featuredProjects = projects.filter((project) => project.featured);
 
   useEffect(() => {
+    /**
+     * Checks if the section is visible enough in the viewport
+     * to trigger the project card animations.
+     *
+     * Control here:
+     * - triggerPoint: lower value = later trigger
+     * - higher value = earlier trigger
+     */
     const checkVisibility = () => {
       if (!sectionRef.current) return;
 
@@ -50,17 +76,36 @@ export default function ProjectsSection() {
   }, []);
 
   return (
-    <Section id="projects-section" refProp={sectionRef}>
-      <SectionFrame
-        tintClassName={`${theme.sectionTints.projects}/85`}
-        className="backdrop-blur-[1px]"
-      >
-        <Container>
-          <SectionHeading>Featured Projects</SectionHeading>
+    <Section
+      id="projects-section"
+      refProp={sectionRef}
+      className={`${theme.sectionTints.projects} py-20`}
+    >
+      <Container>
+        <SectionFrame>
+          {/* ============================= */}
+          {/* SECTION INTRO */}
+          {/* ============================= */}
+          <div className="mx-auto max-w-3xl text-center">
+            <SectionHeading>Featured Projects</SectionHeading>
 
-          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            <p className="mt-4 text-lg leading-8 text-white/75">
+              Selected projects that reflect how I approach frontend
+              architecture, reusable systems, and production-ready user
+              experiences.
+            </p>
+          </div>
+
+          {/* ============================= */}
+          {/* PROJECT CARD LIST */}
+          {/* ============================= */}
+          <div className="mt-12 grid gap-8">
             {featuredProjects.length > 0 ? (
               featuredProjects.map((project, index) => {
+                /**
+                 * Alternate animation direction
+                 * to create a more dynamic reveal pattern.
+                 */
                 const direction = index % 2 === 0 ? "left" : "right";
 
                 return (
@@ -73,11 +118,13 @@ export default function ProjectsSection() {
                 );
               })
             ) : (
-              <p className="text-white/80">No projects available.</p>
+              <p className="text-center text-white/70">
+                No projects available.
+              </p>
             )}
           </div>
-        </Container>
-      </SectionFrame>
+        </SectionFrame>
+      </Container>
     </Section>
   );
 }
