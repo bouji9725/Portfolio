@@ -3,81 +3,69 @@
 /**
  * HERO SECTION
  *
- * This component is responsible for:
- * - full-screen landing section
+ * This file controls:
  * - binary animated background
- * - typing greeting effect
- * - main headline (your role)
+ * - greeting typing effect
+ * - profile image
+ * - main value statement
+ * - CTA buttons
  *
- * Everything visual in the hero should be controlled here.
+ * Important rule:
+ * Shared visual styling should come from theme.ts.
+ * Global animation classes stay in globals.css.
  */
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import { theme } from "@/lib/theme";
 
 /**
- * TEXT CONTENT
+ * HERO TEXT CONTENT
  *
  * Control here:
- * - greeting text (typing animation)
- * - main headline lines
+ * - greeting
+ * - main headline/value statement
  */
 const greeting = "Hello, I am Abdelrahman!";
-const bioLine1 = "A frontend developer";
-const bioLine2 = "specialised in React";
+const headline =
+  "Frontend developer building modern web applications with React, Next.js, and TypeScript — focused on clean architecture, performance, and real user value.";
 
 /**
- * BINARY BACKGROUND BASE UNIT
+ * BINARY BACKGROUND CONTENT
  *
  * Control here:
- * - density of binary characters (longer = denser)
- * - pattern randomness (you can randomize later if needed)
+ * - density of binary strings
+ * - horizontal width of each row
  */
 const binaryUnit = "01010111001010101011100101010101";
-
-/**
- * ONE FULL ROW OF BINARY TEXT
- *
- * Control here:
- * - repeat count → controls horizontal length
- */
 const binaryRow = binaryUnit.repeat(40);
 
 export default function HeroSection() {
   /**
-   * SECTION VISIBILITY TRACKING
+   * Hero section ref
    *
-   * Used to:
-   * - trigger typing animation only when section is visible
-   *
-   * Control:
-   * - behavior is handled in useEffect below
+   * Used for viewport visibility detection.
    */
   const sectionRef = useRef<HTMLElement | null>(null);
 
   /**
-   * VISIBILITY STATE
+   * Visibility state
    *
-   * true → section is visible in viewport
-   * false → section is not visible
+   * Used to start/reset the typing effect.
    */
   const [isVisible, setIsVisible] = useState(false);
 
   /**
-   * TYPING TEXT STATE
-   *
-   * This holds the progressively revealed greeting text
+   * Progressive typing state
    */
   const [visibleGreeting, setVisibleGreeting] = useState("");
 
   /**
-   * GENERATE ALL BINARY ROWS
+   * Prebuild binary rows for background animation
    *
-   * Control here:
-   * - length (48 rows) → controls vertical density
-   * - performance: memoized so it doesn't re-render every time
+   * Memoized for performance.
    */
   const binaryRows = useMemo(
     () => Array.from({ length: 48 }, () => binaryRow),
@@ -85,16 +73,10 @@ export default function HeroSection() {
   );
 
   /**
-   * VISIBILITY DETECTION LOGIC
-   *
-   * What it does:
-   * - checks if hero is in viewport
-   * - updates isVisible state
+   * Detect hero visibility in viewport
    *
    * Control here:
-   * - triggerPoint (0.85 = 85% of viewport height)
-   *   lower → triggers earlier
-   *   higher → triggers later
+   * - triggerPoint = when the typing starts
    */
   useEffect(() => {
     const checkVisibility = () => {
@@ -121,13 +103,10 @@ export default function HeroSection() {
   }, []);
 
   /**
-   * TYPING ANIMATION LOGIC
-   *
-   * What it does:
-   * - reveals greeting text character by character
+   * Typing animation
    *
    * Control here:
-   * - speed → change interval (70ms)
+   * - speed (90ms)
    * - reset behavior when leaving viewport
    */
   useEffect(() => {
@@ -144,7 +123,7 @@ export default function HeroSection() {
         if (index >= greeting.length) {
           clearInterval(interval);
         }
-      }, 90); // 🔥 typing speed (lower = faster)
+      }, 90);
     } else {
       setVisibleGreeting("");
     }
@@ -154,116 +133,100 @@ export default function HeroSection() {
     };
   }, [isVisible]);
 
+  /**
+   * Smooth scroll for CTA buttons
+   */
+  const scrollToSection = (id: string) => () => {
+    const element = document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
-    /**
-     * SECTION WRAPPER
-     *
-     * Control here:
-     * - height → min-h-screen
-     * - top spacing → pt-16 (header offset)
-     * - positioning → relative (for absolute background)
-     */
     <Section
       id="hero-section"
       refProp={sectionRef}
-      className="relative min-h-screen overflow-hidden pt-16"
+      className={`relative overflow-hidden ${theme.spacing.heroSectionTop}`}
     >
       {/* ============================= */}
-      {/* BINARY BACKGROUND LAYER */}
+      {/* BINARY BACKGROUND */}
       {/* ============================= */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden opacity-20"
+      >
+        {/* Dark overlay above binary rows */}
+        <div className="absolute inset-0 bg-black/45" />
 
-      <div className="absolute inset-0 overflow-hidden opacity-30">
-        {binaryRows.map((row, index) => (
-          <p
-            key={`${row}-${index}`}
-            className={`binary-row 
-              whitespace-nowrap 
-              font-mono 
-              text-[10px] 
-              leading-[10px] 
-              tracking-[0.2em] 
-              text-white/30 
-              ${index % 2 === 0 ? "binary-row-left" : "binary-row-right"}
-            `}
-          >
-            {row}
-          </p>
-        ))}
+        {/* Binary animated rows from globals.css */}
+        <div className="absolute inset-0 flex flex-col justify-between text-[10px] leading-[10px] text-cyan-300">
+          {binaryRows.map((row, index) => (
+            <div
+              key={index}
+              className={index % 2 === 0 ? "binary-row-left" : "binary-row-right"}
+            >
+              {row}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* 
-        Control background here:
-        - opacity → opacity-30
-        - text size → text-[10px]
-        - line spacing → leading-[10px]
-        - direction → binary-row-left / right (CSS)
-      */}
-
+      {/* ============================= */}
+      {/* HERO CONTENT */}
+      {/* ============================= */}
       <Container>
-        {/* ============================= */}
-        {/* HERO CONTENT WRAPPER */}
-        {/* ============================= */}
-
         <div
-          className="
-            relative z-10 
-            flex min-h-[calc(100vh-9rem)] 
-            flex-col items-center justify-center 
-            text-center 
-            bg-purple-900/10
-          "
+          className={`relative z-10 mx-auto flex ${theme.spacing.heroInnerMinHeight} items-center justify-center`}
         >
-          {/* 
-            Control here:
-            - vertical centering → justify-center
-            - overlay color → bg-purple-500/10
-            - spacing from header → calc height
-          */}
+          <div
+            className={`mx-auto flex w-full ${theme.spacing.heroPanelMaxWidth} flex-col items-center text-center ${theme.radii.heroPanel} ${theme.surfaces.heroPanel} ${theme.spacing.heroPanelPadding}`}
+          >
+            {/* Profile image */}
+            <div className="mb-5 overflow-hidden rounded-full border border-white/20 shadow-xl">
+              <Image
+                src="/profile-image.png"
+                alt="Portrait of Abdelrahman Isler"
+                width={160}
+                height={160}
+                className={`${theme.sizes.heroImage} object-cover`}
+                priority
+              />
+            </div>
 
-          {/* PROFILE IMAGE */}
-          <div className="overflow-hidden rounded-full">
-            <Image
-              src="/profile-image.png"
-              alt="Portrait of Abdelrahman Isler"
-              width={96}
-              height={96}
-              className="h-44 w-44 rounded-full object-cover"
-              priority
-            />
+            {/* Typing greeting */}
+            <p className={`min-h-[1.75rem] ${theme.text.heroGreeting}`}>
+              {visibleGreeting || "\u00A0"}
+            </p>
+
+            {/* Main value statement */}
+            <h1 className={`mt-4 max-w-2xl ${theme.text.heroHeadline}`}>
+              {headline}
+            </h1>
+
+            {/* CTA buttons */}
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={scrollToSection("projects-section")}
+                className={theme.buttons.heroPrimary}
+              >
+                View My Work
+              </button>
+
+              <button
+                type="button"
+                onClick={scrollToSection("contactme-section")}
+                className={theme.buttons.heroSecondary}
+              >
+                Get In Touch
+              </button>
+            </div>
           </div>
-
-          {/* 
-            Control here:
-            - size → h-44 w-44
-            - shape → rounded-full
-          */}
-
-          {/* TYPING GREETING */}
-          <h1 className="mt-4 text-2xl font-semibold text-white/95">
-            {visibleGreeting || "\u00A0"}
-          </h1>
-
-          {/* 
-            Control here:
-            - font size → text-2xl
-            - spacing → mt-4
-          */}
-
-          {/* MAIN HEADLINE */}
-          <h1 className="mt-10 text-5xl font-bold leading-tight text-white sm:text-6xl">
-            {bioLine1}
-          </h1>
-
-          <p className="mt-4 text-5xl font-bold leading-tight text-white sm:text-6xl">
-            {bioLine2}
-          </p>
-
-          {/* 
-            Control here:
-            - size → text-5xl / sm:text-6xl
-            - spacing between lines → mt-4
-            - weight → font-bold
-          */}
         </div>
       </Container>
     </Section>
