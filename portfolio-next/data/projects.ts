@@ -80,7 +80,7 @@ export const projects: Project[] = [
   },
   {
     slug: "teacher-platform",
-    title: "Primary Teacher Website",
+    title: "Special Needs Teacher Website",
     description:
       "A professional website designed to present educational services clearly and create a trustworthy user experience. Built with a clean component structure, responsive layout patterns, and a focus on accessibility, clarity, and maintainability.",
     techStack: ["React", "TypeScript", "Tailwind CSS"],
