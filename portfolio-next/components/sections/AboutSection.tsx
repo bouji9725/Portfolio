@@ -45,14 +45,14 @@ export default function AboutSection() {
       </div>
 
       {/* Link to the longer dedicated About page */}
-      <div className="mt-8">
+      {/* <div className="mt-8">
         <Link
           href="/about"
           className="inline-flex rounded-full border border-cyan-300/40 bg-cyan-300/10 px-5 py-2.5 font-medium text-white transition hover:border-cyan-300/70 hover:bg-cyan-300/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           Read More About Me
         </Link>
-      </div>
+      </div> */ }
     </section>
   );
 }

@@ -92,12 +92,16 @@ export default function ProjectCard({
           {/* ACTION BUTTONS */}
           {/* ============================= */}
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link
+
+
+           {/* <Link
               href={`/projects/${project.slug}`}
               className="rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-white transition hover:border-cyan-300/70 hover:bg-cyan-300/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               Case Study
             </Link>
+*/}
+
 
             <a
               href={project.githubUrl}
