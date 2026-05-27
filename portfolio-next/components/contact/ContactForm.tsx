@@ -5,6 +5,7 @@ import type {
   ContactApiResponse,
   ContactFieldErrors,
 } from "@/types/api/contact";
+import { validateField } from "@/lib/validation/contact";
 
 type ContactFormValues = {
   name: string;
@@ -26,6 +27,8 @@ export default function ContactForm() {
   const [formData, setFormData] =
     useState<ContactFormValues>(INITIAL_FORM_VALUES);
   const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
+  // tracks which fields the user has interacted with — only show inline errors after blur
+  const [touched, setTouched] = useState<Set<string>>(new Set());
   const [serverMessage, setServerMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,14 +39,21 @@ export default function ContactForm() {
     const { name, value } = event.target;
 
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    setFieldErrors((prev) => {
-      const next = { ...prev };
-      delete next[name as keyof ContactFieldErrors];
-      return next;
-    });
-
     setServerMessage("");
+
+    if (touched.has(name)) {
+      const errors = validateField(name as keyof ContactFormValues, value);
+      setFieldErrors((prev) => ({ ...prev, [name]: errors.length ? errors : undefined }));
+    }
+  }
+
+  function handleBlur(
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = event.target;
+    setTouched((prev) => new Set(prev).add(name));
+    const errors = validateField(name as keyof ContactFormValues, value);
+    setFieldErrors((prev) => ({ ...prev, [name]: errors.length ? errors : undefined }));
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -75,6 +85,7 @@ export default function ContactForm() {
       setServerMessage(data.message || "Your message has been sent.");
       setIsSuccess(true);
       setFormData(INITIAL_FORM_VALUES);
+      setTouched(new Set());
     } catch {
       setServerMessage("Something went wrong. Please try again later.");
       setIsSuccess(false);
@@ -94,153 +105,140 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      {/* Honeypot — hidden from real users, traps bots */}
-      <div className="hidden" aria-hidden="true">
-        <label htmlFor="company">Company</label>
-        <input
-          id="company"
-          name="company"
-          type="text"
-          value={formData.company}
-          onChange={handleChange}
-          autoComplete="off"
-          tabIndex={-1}
-        />
-      </div>
-
-      {/* Name + Email row */}
-      <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <label
-            htmlFor="name"
-            className="mb-2 block text-sm font-medium text-white"
-          >
-            Name
-          </label>
-
+    <div className="relative">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Honeypot — hidden from real users, traps bots */}
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="company">Company</label>
           <input
-            id="name"
-            name="name"
+            id="company"
+            name="company"
             type="text"
-            value={formData.name}
+            value={formData.company}
             onChange={handleChange}
-            placeholder="Your name"
-            className={getFieldClass(Boolean(fieldErrors.name?.length))}
+            autoComplete="off"
+            tabIndex={-1}
           />
-
-          {fieldErrors.name?.map((error) => (
-            <p key={error} className="mt-2 text-sm text-red-300">
-              {error}
-            </p>
-          ))}
         </div>
 
+        {/* Name + Email */}
+        <div className="grid gap-5 md:grid-cols-2">
+          <div>
+            <label htmlFor="name" className="mb-2 block text-sm font-medium text-white">
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="Your name"
+              className={getFieldClass(Boolean(fieldErrors.name?.length))}
+            />
+            {fieldErrors.name?.map((error) => (
+              <p key={error} className="mt-2 text-sm text-red-300">{error}</p>
+            ))}
+          </div>
+
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-white">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder="you@example.com"
+              className={getFieldClass(Boolean(fieldErrors.email?.length))}
+            />
+            {fieldErrors.email?.map((error) => (
+              <p key={error} className="mt-2 text-sm text-red-300">{error}</p>
+            ))}
+          </div>
+        </div>
+
+        {/* Subject */}
         <div>
-          <label
-            htmlFor="email"
-            className="mb-2 block text-sm font-medium text-white"
-          >
-            Email
+          <label htmlFor="subject" className="mb-2 block text-sm font-medium text-white">
+            Subject
           </label>
-
           <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
+            id="subject"
+            name="subject"
+            type="text"
+            value={formData.subject}
             onChange={handleChange}
-            placeholder="you@example.com"
-            className={getFieldClass(Boolean(fieldErrors.email?.length))}
+            onBlur={handleBlur}
+            placeholder="What is this about?"
+            className={getFieldClass(Boolean(fieldErrors.subject?.length))}
           />
-
-          {fieldErrors.email?.map((error) => (
-            <p key={error} className="mt-2 text-sm text-red-300">
-              {error}
-            </p>
+          {fieldErrors.subject?.map((error) => (
+            <p key={error} className="mt-2 text-sm text-red-300">{error}</p>
           ))}
         </div>
-      </div>
 
-      {/* Subject */}
-      <div>
-        <label
-          htmlFor="subject"
-          className="mb-2 block text-sm font-medium text-white"
-        >
-          Subject
-        </label>
+        {/* Message */}
+        <div>
+          <label htmlFor="message" className="mb-2 block text-sm font-medium text-white">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={6}
+            value={formData.message}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Tell me about your project, role, or idea..."
+            className={getFieldClass(Boolean(fieldErrors.message?.length))}
+          />
+          {fieldErrors.message?.map((error) => (
+            <p key={error} className="mt-2 text-sm text-red-300">{error}</p>
+          ))}
+        </div>
 
-        <input
-          id="subject"
-          name="subject"
-          type="text"
-          value={formData.subject}
-          onChange={handleChange}
-          placeholder="What is this about?"
-          className={getFieldClass(Boolean(fieldErrors.subject?.length))}
-        />
-
-        {fieldErrors.subject?.map((error) => (
-          <p key={error} className="mt-2 text-sm text-red-300">
-            {error}
-          </p>
-        ))}
-      </div>
-
-      {/* Message */}
-      <div>
-        <label
-          htmlFor="message"
-          className="mb-2 block text-sm font-medium text-white"
-        >
-          Message
-        </label>
-
-        <textarea
-          id="message"
-          name="message"
-          rows={6}
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Tell me about your project, role, or idea..."
-          className={getFieldClass(Boolean(fieldErrors.message?.length))}
-        />
-
-        {fieldErrors.message?.map((error) => (
-          <p key={error} className="mt-2 text-sm text-red-300">
-            {error}
-          </p>
-        ))}
-      </div>
-
-      {/* Always-present live region — announced to screen readers on change */}
-      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {serverMessage}
-      </div>
-
-      {/* Visible status message */}
-      {serverMessage ? (
-        <div
-          className={`rounded-xl px-4 py-3 text-sm backdrop-blur-sm ${
-            isSuccess
-              ? "border border-green-400/30 bg-green-500/10 text-green-200"
-              : "border border-red-400/30 bg-red-500/10 text-red-200"
-          }`}
-        >
+        {/* Always-present live region for screen readers */}
+        <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
           {serverMessage}
         </div>
-      ) : null}
 
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        aria-busy={isSubmitting}
-        className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white/10"
-      >
-        {isSubmitting ? "Sending…" : "Send Message"}
-      </button>
-    </form>
+        {/* Visible status message */}
+        {serverMessage ? (
+          <div
+            className={`rounded-xl px-4 py-3 text-sm backdrop-blur-sm ${
+              isSuccess
+                ? "border border-green-400/30 bg-green-500/10 text-green-200"
+                : "border border-red-400/30 bg-red-500/10 text-red-200"
+            }`}
+          >
+            {serverMessage}
+          </div>
+        ) : null}
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+          className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white/10"
+        >
+          {isSubmitting ? "Sending…" : "Send Message"}
+        </button>
+      </form>
+
+      {/* Full-form loading overlay */}
+      {isSubmitting && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/40 backdrop-blur-sm"
+        >
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-cyan-300" />
+        </div>
+      )}
+    </div>
   );
 }

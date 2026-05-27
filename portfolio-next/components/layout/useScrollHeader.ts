@@ -1,15 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { UI } from "@/lib/constants/ui";
 
-/**
- * Controls header visibility based on scroll direction.
- *
- * Behavior:
- * - visible near the top
- * - hides while scrolling down
- * - shows while scrolling up
- */
 export function useScrollHeader() {
   const [isHidden, setIsHidden] = useState(false);
   const prevScrollY = useRef(0);
@@ -18,7 +11,7 @@ export function useScrollHeader() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY < 50) {
+      if (currentScrollY < UI.SCROLL_THRESHOLD_PX) {
         setIsHidden(false);
       } else if (currentScrollY > prevScrollY.current) {
         setIsHidden(true);

@@ -11,9 +11,14 @@ export default function Header() {
 
   const handleClick = (id: string) => () => {
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!element) return;
+
+    // Move keyboard focus into the section after scrolling
+    if (!element.hasAttribute("tabindex")) {
+      element.setAttribute("tabindex", "-1");
     }
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    element.focus({ preventScroll: true });
   };
 
   return (

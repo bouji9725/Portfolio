@@ -17,6 +17,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Container from "@/components/layout/Container";
+import { UI } from "@/lib/constants/ui";
 import Section from "@/components/layout/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProjectCard from "@/components/ui/ProjectCard";
@@ -56,7 +57,7 @@ export default function ProjectsSection() {
       if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
-      const triggerPoint = window.innerHeight * 0.85;
+      const triggerPoint = window.innerHeight * UI.VIEWPORT_TRIGGER_RATIO;
 
       if (rect.top < triggerPoint && rect.bottom > 0) {
         setIsVisible(true);
