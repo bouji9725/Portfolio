@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SiteBackground from "@/components/layout/SiteBackground";
@@ -34,9 +35,17 @@ export const metadata: Metadata = {
 
   authors: [{ name: "Abdelrahman Isler", url: "https://www.a-isler.com" }],
 
+  alternates: {
+    canonical: "/",
+  },
+
   robots: {
     index: true,
     follow: true,
+  },
+
+  icons: {
+    apple: "/apple-touch-icon.png",
   },
 
   openGraph: {
@@ -90,7 +99,6 @@ export default function RootLayout({
       <body
         className={`${inter.className} relative min-h-screen bg-[var(--background)] text-white antialiased`}
       >
-        {/* Skip to main content for keyboard and screen-reader users */}
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-cyan-300 focus:px-4 focus:py-2 focus:font-medium focus:text-black focus:outline-none"
@@ -105,6 +113,8 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
+
+        <Analytics />
       </body>
     </html>
   );
