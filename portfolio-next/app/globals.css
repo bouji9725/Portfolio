@@ -24,10 +24,6 @@ body {
   color: var(--foreground);
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -40,6 +36,11 @@ img {
 
 main {
   min-height: 100vh;
+}
+
+/* Shared focus ring — apply with class="focus-ring" */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black;
 }
 
 /* Left-moving binary row */
@@ -65,7 +66,6 @@ main {
 /* Shared binary row styling */
 .binary-row {
   margin: 0;
-  
 }
 
 /* Even rows move left */
@@ -76,4 +76,15 @@ main {
 /* Odd rows move right */
 .binary-row-right {
   animation: binaryScrollRight 11s linear infinite;
-}  
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

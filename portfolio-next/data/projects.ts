@@ -22,7 +22,7 @@ export const projects: Project[] = [
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     githubUrl: "https://github.com/bouji9725/Fitness.git",
     liveUrl: "https://fitness-seven-sage.vercel.app/",
-    imageUrl: "/fitness-app.png",
+    imageUrl: "/fitness-appp.png",
     featured: true,
     highlights: [
       "Scalable frontend architecture",

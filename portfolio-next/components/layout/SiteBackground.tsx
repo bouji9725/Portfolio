@@ -1,14 +1,3 @@
-/**
- * Global fixed background layer for the whole portfolio.
- *
- * What to control here:
- * - background image -> change the URL in bg-[url('/hero-background.png')]
- * - image darkness -> change opacity on the image layer and dark overlay layer
- * - binary density -> change binaryRows length or duplicated row text
- * - binary text color -> change text-cyan-200/20
- * - binary speed -> controlled in globals.css animation duration
- * - binary direction -> controlled by even/odd class names below
- */
 const binaryRows = [
   "010010010101001101001100010001010101001000100000010000100100100101001110010000010101001001011001",
   "101001010010101010010101001010101001010100101010100101010010101010010101001010101001010100101010",
@@ -31,8 +20,8 @@ const binaryRows = [
 export default function SiteBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {/* Fixed background image */}
-      <div className="absolute inset-0 bg-[url('/hero-background.png')] bg-cover bg-center bg-fixed opacity-25" />
+      {/* Background image — AVIF for better compression */}
+      <div className="absolute inset-0 bg-[url('/hero-background.avif')] bg-cover bg-center opacity-25" />
 
       {/* Dark overlay to keep text readable */}
       <div className="absolute inset-0 bg-black/55" />

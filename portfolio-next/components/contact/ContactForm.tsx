@@ -6,16 +6,14 @@ import type {
   ContactFieldErrors,
 } from "@/types/api/contact";
 
-// Local form state shape used only inside this component
 type ContactFormValues = {
   name: string;
   email: string;
   subject: string;
   message: string;
-  company: string; // Hidden honeypot field
+  company: string;
 };
 
-// Initial empty form values
 const INITIAL_FORM_VALUES: ContactFormValues = {
   name: "",
   email: "",
@@ -25,46 +23,29 @@ const INITIAL_FORM_VALUES: ContactFormValues = {
 };
 
 export default function ContactForm() {
-  // Stores all current input values
   const [formData, setFormData] =
     useState<ContactFormValues>(INITIAL_FORM_VALUES);
-
-  // Stores field-specific backend validation errors
   const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
-
-  // Stores a general success or error message
   const [serverMessage, setServerMessage] = useState("");
-
-  // Tracks whether the last request succeeded
   const [isSuccess, setIsSuccess] = useState(false);
-
-  // Tracks loading state while submitting
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Handles typing in all inputs and textarea fields
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     const { name, value } = event.target;
 
-    // Update only the changed field
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Remove the existing error for the field the user is editing
     setFieldErrors((prev) => {
       const next = { ...prev };
       delete next[name as keyof ContactFieldErrors];
       return next;
     });
 
-    // Clear global message while user edits again
     setServerMessage("");
   }
 
-  // Handles form submission to the backend API
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -74,34 +55,27 @@ export default function ContactForm() {
     setFieldErrors({});
 
     try {
-      // Send request to your backend route
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data: ContactApiResponse = await response.json();
 
-      // Handle validation errors / rate limit / generic backend failures
       if (!response.ok) {
         if ("fieldErrors" in data && data.fieldErrors) {
           setFieldErrors(data.fieldErrors);
         }
-
         setServerMessage(data.message || "Something went wrong.");
         setIsSuccess(false);
         return;
       }
 
-      // Success path: show success message and reset the form
       setServerMessage(data.message || "Your message has been sent.");
       setIsSuccess(true);
       setFormData(INITIAL_FORM_VALUES);
     } catch {
-      // Network or unexpected runtime failure
       setServerMessage("Something went wrong. Please try again later.");
       setIsSuccess(false);
     } finally {
@@ -109,8 +83,6 @@ export default function ContactForm() {
     }
   }
 
-  // Reusable helper:
-  // returns the correct input style depending on whether a field has an error
   function getFieldClass(hasError: boolean) {
     return [
       "w-full rounded-xl px-4 py-3 text-white placeholder:text-white/40 outline-none transition",
@@ -123,11 +95,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      {/* 
-        Hidden honeypot field.
-        Real users never interact with this.
-        Bots often fill every field and get blocked by the backend.
-      */}
+      {/* Honeypot — hidden from real users, traps bots */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="company">Company</label>
         <input
@@ -161,7 +129,6 @@ export default function ContactForm() {
             className={getFieldClass(Boolean(fieldErrors.name?.length))}
           />
 
-          {/* Show backend validation error under the field */}
           {fieldErrors.name?.map((error) => (
             <p key={error} className="mt-2 text-sm text-red-300">
               {error}
@@ -195,7 +162,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* Subject field */}
+      {/* Subject */}
       <div>
         <label
           htmlFor="subject"
@@ -221,7 +188,7 @@ export default function ContactForm() {
         ))}
       </div>
 
-      {/* Message field */}
+      {/* Message */}
       <div>
         <label
           htmlFor="message"
@@ -247,7 +214,12 @@ export default function ContactForm() {
         ))}
       </div>
 
-      {/* Global backend success/error message */}
+      {/* Always-present live region — announced to screen readers on change */}
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {serverMessage}
+      </div>
+
+      {/* Visible status message */}
       {serverMessage ? (
         <div
           className={`rounded-xl px-4 py-3 text-sm backdrop-blur-sm ${
@@ -260,13 +232,14 @@ export default function ContactForm() {
         </div>
       ) : null}
 
-      {/* Submit button */}
+      {/* Submit */}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-60"
+        aria-busy={isSubmitting}
+        className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white/10"
       >
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? "Sending…" : "Send Message"}
       </button>
     </form>
   );
