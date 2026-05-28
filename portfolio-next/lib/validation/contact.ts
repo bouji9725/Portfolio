@@ -1,6 +1,6 @@
 import { CONTACT_LIMITS } from "@/lib/constants/contact";
 
-type ValidatableField = "name" | "email" | "subject" | "message";
+type ValidatableField = "name" | "email" | "subject" | "message" | "company";
 
 export function validateField(name: ValidatableField, value: string): string[] {
   const errors: string[] = [];
