@@ -91,9 +91,9 @@ export default function ProjectsSection() {
             <SectionHeading>Featured Projects</SectionHeading>
 
             <p className="mt-4 text-lg leading-8 text-white/75">
-              Selected projects that reflect how I approach frontend
-              architecture, reusable systems, and production-ready user
-              experiences.
+              Selected projects that show my practical experience with frontend
+              development, full-stack foundations, database integration and
+              deployment.
             </p>
           </div>
 

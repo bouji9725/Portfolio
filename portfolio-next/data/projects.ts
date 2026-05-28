@@ -1,79 +1,78 @@
 import type { Project } from "@/types/project";
 
-/**
- * PROJECT DATA SOURCE
- *
- * This file controls:
- * - homepage project cards
- * - dynamic project detail pages
- *
- * Update this file when:
- * - adding a new project
- * - changing project descriptions
- * - updating case-study content
- */
-
 export const projects: Project[] = [
   {
     slug: "fitness-saas",
     title: "Fitness SaaS App",
     description:
-      "A fitness tracking web app for planning workouts, logging sessions, and monitoring training progress. Built with a scalable frontend architecture using Next.js, React, and TypeScript, with a strong focus on reusable components and maintainable structure.",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      "A fitness tracking web application for planning workouts, saving user data and monitoring progress over time. The project helped me practise full-stack foundations with Next.js, TypeScript, PostgreSQL and Prisma, while building a clean and responsive user interface.",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Prisma",
+      "REST APIs",
+      "Vercel",
+    ],
     githubUrl: "https://github.com/bouji9725/Fitness.git",
     liveUrl: "https://fitness-seven-sage.vercel.app/",
     imageUrl: "/fitness-appp.png",
     featured: true,
     highlights: [
-      "Scalable frontend architecture",
-      "Reusable component system",
-      "Structured app flows and state handling",
+      "Built structured workout, nutrition and progress-tracking flows",
+      "Connected frontend forms with API routes and backend logic",
+      "Used PostgreSQL and Prisma for database persistence",
+      "Practised database models, migrations and environment variables",
+      "Designed reusable React components with TypeScript",
+      "Deployed the project and handled basic production setup",
     ],
     role:
-      "Solo developer responsible for frontend architecture, UI implementation, routing, state structure, and product direction.",
+      "Solo developer responsible for frontend architecture, UI implementation, API routes, database schema, and deployment.",
     summary:
-      "A product-focused frontend application designed to support structured workout tracking, progress monitoring, and future backend expansion.",
+      "A full-stack fitness application combining a clean frontend interface with backend data persistence, API integration and production deployment.",
     sections: [
       {
         title: "Overview",
         paragraphs: [
-          "This project was built as a real frontend product rather than a single landing page or tutorial-style interface. The goal was to create a multi-section application where users can manage workouts, log training sessions, and track progress in a more structured way.",
-          "From the beginning, I treated this project as a scalable product foundation. That meant thinking beyond UI and focusing on how the app should be organized for maintainability, future features, and cleaner long-term development.",
+          "This project was built as a real full-stack application rather than a simple landing page. The goal was to create a multi-section fitness platform where users can manage workouts, log training sessions and track progress with data that persists across sessions.",
+          "I treated this project as a scalable product foundation — thinking beyond UI to cover how the app connects frontend interfaces with backend logic, database models and real user data.",
         ],
       },
       {
         title: "Goals",
         paragraphs: [
-          "The main goal was to build a frontend experience that feels like a real application, with multiple connected flows instead of isolated screens. I wanted the project to show stronger engineering thinking through structure, reusability, and clear data organization.",
-          "A second goal was to prepare the app for future backend integration. Even before adding a full database layer, the frontend needed to be organized in a way that would support APIs, authentication, and more persistent user data later.",
+          "The main goal was to build a frontend experience that feels like a real application, backed by a working database layer. I wanted the project to demonstrate engineering thinking through structure, reusability, and a clear path from user interaction to persisted data.",
+          "A second goal was to practise full-stack foundations hands-on — not just reading about PostgreSQL and Prisma, but actually designing database models, writing API routes and connecting them to a working frontend.",
         ],
       },
       {
         title: "Technical Decisions",
         paragraphs: [
-          "I used Next.js with the App Router, React, TypeScript, and Tailwind CSS to build the application with a modern production-oriented stack. The project was structured using reusable sections, shared UI components, and organized data flow so that features could grow without the codebase becoming messy.",
-          "A strong focus was placed on maintainable component architecture. Instead of building everything inline, I separated display logic, shared UI patterns, and app-specific structures to make the frontend easier to evolve and easier to reason about.",
+          "I used Next.js with the App Router, TypeScript and Tailwind CSS on the frontend, with PostgreSQL and Prisma on the backend. API routes handle data fetching and mutations between the UI and the database, giving me a clear understanding of how full-stack data flow works in practice.",
+          "A strong focus was placed on maintainable component architecture. Instead of building everything inline, I separated display logic, shared UI patterns and data-fetching concerns to make the project easier to reason about and extend.",
         ],
       },
       {
         title: "Challenges",
         paragraphs: [
-          "One of the main challenges was avoiding a frontend that looks good visually but becomes hard to scale as the app grows. Managing multiple screens, flows, and reusable patterns required discipline in naming, file organization, and state handling.",
-          "Another challenge was balancing realism with scope. As a solo developer, I needed the product to feel substantial and credible without overengineering features too early. That meant making deliberate trade-offs about what to build now and what to prepare for later.",
+          "One of the main challenges was designing a database schema that reflects real workout tracking needs — handling relationships between users, sessions, exercises and progress logs without over-engineering early.",
+          "Another challenge was connecting frontend form state to backend API routes cleanly, with proper validation on both sides and clear error feedback returned to the user.",
         ],
       },
       {
         title: "What This Project Shows",
         paragraphs: [
-          "This project demonstrates how I think about frontend work beyond styling alone. It reflects product thinking, reusable architecture, maintainable UI systems, and an understanding of how to build a stronger foundation for future growth.",
-          "For recruiters and engineering teams, this project is the clearest example of how I approach structured frontend development and how I try to build applications in a way that is realistic, scalable, and production-minded.",
+          "This project demonstrates how I approach full-stack development: not just building UI, but thinking about data models, API design and how frontend components interact with real backend systems.",
+          "For recruiters and engineering teams, this project shows that I understand how modern web applications work end-to-end — from React components and user flows to database persistence and production deployment.",
         ],
       },
       {
         title: "Next Improvements",
         paragraphs: [
-          "The next logical improvements would be authentication, a real database layer, more persistent user data, and stronger testing coverage. These additions would move the app from a strong frontend foundation toward a more complete product system.",
-          "I would also continue refining performance, UX flows, and feature depth while keeping the architecture clean enough to support long-term expansion.",
+          "The next logical improvements would be authentication, richer user dashboards, stronger test coverage and more advanced database queries. These additions would move the app closer to a production-ready product.",
+          "I would also continue refining UX flows and feature depth while keeping the architecture clean enough to support long-term expansion.",
         ],
       },
     ],
@@ -82,62 +81,74 @@ export const projects: Project[] = [
     slug: "teacher-platform",
     title: "Special Needs Teacher Website",
     description:
-      "A professional website designed to present educational services clearly and create a trustworthy user experience. Built with a clean component structure, responsive layout patterns, and a focus on accessibility, clarity, and maintainability.",
-    techStack: ["React", "TypeScript", "Tailwind CSS"],
+      "A professional service website for a special needs teacher, designed to present educational support offers clearly and guide parents through a simple booking and contact flow. The project combines responsive frontend development with backend foundations for handling and saving booking requests.",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Prisma",
+      "API Routes",
+      "Vercel",
+    ],
     githubUrl: "https://github.com/bouji9725/Primary-Teacher.git",
     liveUrl: "https://primary-teacher.vercel.app/",
     imageUrl: "/teacher-app.png",
     featured: true,
     highlights: [
-      "Responsive layout patterns",
-      "Accessible content structure",
-      "Clean component-based implementation",
+      "Built a clear and trustworthy service website for parents",
+      "Created responsive pages and reusable React components",
+      "Implemented form handling for booking and contact requests",
+      "Connected the frontend with backend API logic",
+      "Used PostgreSQL and Prisma to save submitted requests",
+      "Focused on readability, accessibility and a simple user journey",
     ],
     role:
-      "Solo developer responsible for frontend implementation, layout system, reusable UI structure, and responsive presentation.",
+      "Solo developer responsible for frontend implementation, layout system, form handling, API routes, database integration and deployment.",
     summary:
-      "A service-oriented website built to communicate clearly, present educational offers professionally, and create a reliable digital presence.",
+      "A service-oriented website combining a clear and trustworthy frontend with backend form handling and database persistence for booking requests.",
     sections: [
       {
         title: "Overview",
         paragraphs: [
-          "This project was built as a professional service website with a strong emphasis on clarity, trust, and usability. The goal was to present educational services in a way that feels structured, welcoming, and easy to navigate.",
-          "Rather than treating it as a simple static page, I used the project to practice cleaner frontend structure, reusable layout patterns, and stronger communication through UI.",
+          "This project was built as a professional service website with a strong emphasis on clarity, trust and usability. The goal was to present educational services in a way that feels structured and welcoming, while also allowing parents to submit booking and contact requests that are saved and handled on the backend.",
+          "Rather than treating it as a simple static page, I used the project to practise cleaner frontend structure, reusable layout patterns and connecting a public-facing website to real backend data persistence.",
         ],
       },
       {
         title: "Goals",
         paragraphs: [
-          "The primary goal was to create a site that communicates services clearly and supports a polished professional presence. A second goal was to keep the implementation maintainable, so future content updates and design adjustments remain straightforward.",
-          "I also wanted the project to reflect stronger frontend fundamentals such as responsive design, clear hierarchy, and consistent component usage.",
+          "The primary goal was to create a site that communicates services clearly and supports a polished professional presence. A second goal was to implement a working contact and booking flow — not just a form that sends an email, but one that saves data to a PostgreSQL database via Prisma.",
+          "I also wanted the project to reflect stronger frontend fundamentals such as responsive design, clear hierarchy and consistent component usage across all pages.",
         ],
       },
       {
         title: "Technical Decisions",
         paragraphs: [
-          "The site was built with a component-based structure so repeated layout patterns and presentation logic remain reusable. This helps keep the codebase cleaner than if each page section were built independently.",
-          "Responsive behavior and content clarity were important priorities. Layout decisions were made to keep the interface readable and consistent across screen sizes while supporting a trustworthy user experience.",
+          "The site was built with a component-based structure so repeated layout patterns and presentation logic remain reusable. API routes handle incoming form submissions, validate the data and persist it to a PostgreSQL database through Prisma ORM.",
+          "Responsive behaviour and content clarity were important priorities. Layout decisions were made to keep the interface readable and consistent across screen sizes while supporting a trustworthy user experience.",
         ],
       },
       {
         title: "Challenges",
         paragraphs: [
-          "The main challenge in this project was not technical complexity in the backend sense, but creating a frontend that feels professional and well-structured rather than generic. That requires careful control of layout, hierarchy, spacing, and content presentation.",
-          "Another challenge was keeping the UI simple without making it feel plain. The final result needed to balance clarity, friendliness, and professionalism.",
+          "The main frontend challenge was not technical complexity for its own sake, but creating an interface that feels professional and well-structured rather than generic — requiring careful control of layout, hierarchy, spacing and content presentation.",
+          "On the backend side, the challenge was designing a clean API route for form submission, handling validation errors gracefully and returning clear feedback to the user when a request succeeds or fails.",
         ],
       },
       {
         title: "What This Project Shows",
         paragraphs: [
-          "This project shows that I can build clean, professional frontend experiences not only for app-style products, but also for service-oriented websites where communication and trust matter strongly.",
-          "It also reflects a more disciplined approach to reusable layout structure, maintainability, and responsive execution.",
+          "This project shows that I can build clean, professional frontend experiences for service-oriented websites where communication and trust matter, while also connecting those interfaces to working backend logic and database persistence.",
+          "It reflects a disciplined approach to reusable layout structure, form handling, API integration and maintainable full-stack execution.",
         ],
       },
       {
         title: "Next Improvements",
         paragraphs: [
-          "Future improvements could include richer service storytelling, more content depth, analytics integration, and refined conversion-focused sections depending on business goals.",
-          "From an engineering perspective, the next step would be to keep evolving the component structure and content system in a way that supports future growth without adding unnecessary complexity.",
+          "Future improvements could include an admin dashboard for managing booking requests, email notifications on submission, richer content sections and improved analytics to track user engagement.",
+          "From an engineering perspective, the next step would be to add authentication for the admin area and stronger input validation and rate limiting on the API routes.",
         ],
       },
     ],

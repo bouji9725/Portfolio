@@ -9,7 +9,7 @@ import { UI } from "@/lib/constants/ui";
 
 const greeting = "Hello, I am Abdelrahman!";
 const headline =
-  "Frontend developer building modern web applications with React, Next.js, and TypeScript — focused on clean architecture, performance, and real user value.";
+  "IT graduate based in the Zurich area. I build modern web applications with React, Next.js and TypeScript, and I am expanding into full-stack development with PostgreSQL, Prisma, API routes and deployment workflows.";
 
 const binaryUnit = "01010111001010101011100101010101";
 const binaryRow = binaryUnit.repeat(UI.BINARY_REPEAT_COUNT);

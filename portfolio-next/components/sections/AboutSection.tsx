@@ -13,26 +13,39 @@ export default function AboutSection() {
 
       <div className="mt-8 space-y-6 text-lg leading-8 text-white/85">
         <p>
-          I'm a frontend developer specialized in React, Next.js, and
-          TypeScript, with a strong focus on clean architecture, reusable
-          components, and maintainable UI systems.
+          I am a junior frontend developer and IT graduate based in the Zurich
+          area, with hands-on project experience in React, Next.js, TypeScript
+          and Tailwind CSS.
         </p>
 
         <p>
-          I build web applications that are not only visually polished, but also
-          structured for scalability, performance, and real-world use.
+          Through my own projects, I have started moving beyond frontend
+          development into full-stack foundations. I have worked with PostgreSQL
+          databases, Prisma ORM, API routes, form handling, data persistence and
+          basic deployment workflows. This helped me understand how frontend
+          interfaces connect with backend logic, databases and real application
+          data.
         </p>
 
         <p>
-          Through hands-on projects, I've worked on frontend architecture, API
-          integration, form validation, accessibility, and production
-          deployment.
+          My focus is building clean, responsive and user-friendly web
+          applications with maintainable structure. I enjoy learning how
+          different parts of an application work together — from UI components
+          and user flows to database models and deployed projects.
         </p>
 
         <p>
-          I'm currently looking for a frontend role in Zurich where I can
-          contribute to real products, grow as an engineer, and deliver
-          high-quality user experiences.
+          Before moving fully into IT, I gained strong customer-facing
+          experience in gastronomy. This taught me to stay calm under pressure,
+          communicate clearly and solve problems with a service-oriented mindset
+          — qualities I now bring into technical work and team collaboration.
+        </p>
+
+        <p>
+          I am currently looking for a junior frontend developer role or IT
+          internship in the Zurich area, where I can contribute, learn from
+          experienced engineers and continue growing toward full-stack
+          development.
         </p>
       </div>
     </section>

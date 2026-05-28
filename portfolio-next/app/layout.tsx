@@ -15,19 +15,23 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.a-isler.com"),
 
   title: {
-    default: "Abdelrahman Isler | Frontend Developer",
+    default: "Abdelrahman Isler | Junior Frontend Developer",
     template: "%s | Abdelrahman Isler",
   },
 
   description:
-    "Frontend developer portfolio of Abdelrahman Isler, focused on building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+    "Junior frontend developer and IT graduate based in the Zurich area, building modern web applications with React, Next.js, TypeScript, PostgreSQL and Prisma.",
 
   keywords: [
-    "frontend developer",
+    "junior frontend developer",
+    "IT graduate",
     "React",
     "Next.js",
     "TypeScript",
     "Tailwind CSS",
+    "PostgreSQL",
+    "Prisma",
+    "full-stack",
     "web developer",
     "Zurich",
     "Abdelrahman Isler",
@@ -49,9 +53,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Abdelrahman Isler | Frontend Developer",
+    title: "Abdelrahman Isler | Junior Frontend Developer",
     description:
-      "Frontend developer building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+      "Junior frontend developer and IT graduate based in the Zurich area, building modern web applications with React, Next.js, TypeScript, PostgreSQL and Prisma.",
     url: "https://www.a-isler.com",
     siteName: "Abdelrahman Isler Portfolio",
     locale: "en_US",
@@ -60,9 +64,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Abdelrahman Isler | Frontend Developer",
+    title: "Abdelrahman Isler | Junior Frontend Developer",
     description:
-      "Frontend developer building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+      "Junior frontend developer and IT graduate based in the Zurich area, building modern web applications with React, Next.js, TypeScript, PostgreSQL and Prisma.",
   },
 
   applicationName: "Abdelrahman Isler Portfolio",
@@ -74,9 +78,9 @@ const jsonLd = {
   "@type": "Person",
   name: "Abdelrahman Isler",
   url: "https://www.a-isler.com",
-  jobTitle: "Frontend Developer",
+  jobTitle: "Junior Frontend Developer",
   description:
-    "Frontend developer building modern web applications with React, Next.js, TypeScript, and Tailwind CSS.",
+    "Junior frontend developer and IT graduate based in the Zurich area, building modern web applications with React, Next.js, TypeScript, PostgreSQL and Prisma.",
   sameAs: [
     "https://github.com/bouji9725",
     "https://linkedin.com/in/abdelrahman-isler-a50823255",
