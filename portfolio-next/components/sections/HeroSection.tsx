@@ -104,7 +104,7 @@ export default function HeroSection() {
           >
             <div className="mb-5 overflow-hidden rounded-full border border-white/20 shadow-xl">
               <Image
-                src="/profile-image.png"
+                src="/profile-image.jpg"
                 alt="Portrait of Abdelrahman Isler"
                 width={160}
                 height={160}
