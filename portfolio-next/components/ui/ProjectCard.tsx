@@ -1,24 +1,28 @@
+"use client";
+
 import Image from "next/image";
 import type { Project } from "@/types/project";
 import Tag from "@/components/ui/Tag";
+import { useInView } from "@/hooks/useInView";
 import { theme } from "@/lib/theme";
 
 type ProjectCardProps = {
   project: Project;
-  isVisible?: boolean;
   direction?: "left" | "right";
 };
 
 export default function ProjectCard({
   project,
-  isVisible = false,
   direction = "left",
 }: ProjectCardProps) {
+  const { ref, isVisible } = useInView({ threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+
   const hiddenTransform =
     direction === "left" ? "-translate-x-16" : "translate-x-16";
 
   return (
     <article
+      ref={ref}
       className={`${theme.surfaces.card} ${theme.radii.card} overflow-hidden transition-all duration-700 ${
         isVisible
           ? "translate-x-0 opacity-100"
