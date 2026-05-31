@@ -12,7 +12,7 @@ export default function ProjectsSection() {
   const featuredProjects = projects.filter((project) => project.featured);
 
   return (
-    <Section className={`${theme.sectionTints.projects} py-20`}>
+    <Section id="projects-section" className={`${theme.sectionTints.projects} py-20`}>
       <Container>
         <SectionFrame>
           <div className="mx-auto max-w-3xl text-center">
