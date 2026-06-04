@@ -81,15 +81,18 @@ export const projects: Project[] = [
     slug: "teacher-platform",
     title: "Special Needs Teacher Website",
     description:
-      "A professional service website for a special needs teacher, designed to present educational support offers clearly and guide parents through a simple booking and contact flow. The project combines responsive frontend development with backend foundations for handling and saving booking requests.",
+      "A full-stack booking platform for a special needs tutoring practice. Parents browse packages and book sessions through a guided 4-step wizard. The teacher manages all appointments and availability through a password-protected admin panel, with automated email notifications sent via Resend on every booking.",
     techStack: [
       "Next.js",
       "React",
       "TypeScript",
-      "Tailwind CSS",
+      "Material UI (MUI 7)",
+      "Emotion",
+      "Zod",
       "PostgreSQL",
       "Prisma",
-      "API Routes",
+      "Resend",
+      "Upstash Redis",
       "Vercel",
     ],
     githubUrl: "https://github.com/bouji9725/Primary-Teacher.git",
@@ -97,58 +100,58 @@ export const projects: Project[] = [
     imageUrl: "/teacher-app.png",
     featured: true,
     highlights: [
-      "Built a clear and trustworthy service website for parents",
-      "Created responsive pages and reusable React components",
-      "Implemented form handling for booking and contact requests",
-      "Connected the frontend with backend API logic",
-      "Used PostgreSQL and Prisma to save submitted requests",
-      "Focused on readability, accessibility and a simple user journey",
+      "Built a 4-step booking wizard — package selection, calendar, time slot and contact details",
+      "Implemented server-side conflict detection to prevent double-bookings",
+      "Added sliding-window rate limiting (5 req / 10 min per IP) via Upstash Redis",
+      "Sent automated email confirmations to parents and alerts to the teacher via Resend",
+      "Built a password-protected admin panel for managing appointments and blocking dates",
+      "Applied HTTP security headers (X-Frame-Options, HSTS, nosniff) via Next.js config",
     ],
     role:
-      "Solo developer responsible for frontend implementation, layout system, form handling, API routes, database integration and deployment.",
+      "Solo developer responsible for frontend architecture, booking wizard UI, API routes, database schema, email integration, rate limiting and deployment.",
     summary:
-      "A service-oriented website combining a clear and trustworthy frontend with backend form handling and database persistence for booking requests.",
+      "A production-ready booking platform combining a guided multi-step frontend wizard with server-side validation, conflict detection, rate limiting and automated email notifications.",
     sections: [
       {
         title: "Overview",
         paragraphs: [
-          "This project was built as a professional service website with a strong emphasis on clarity, trust and usability. The goal was to present educational services in a way that feels structured and welcoming, while also allowing parents to submit booking and contact requests that are saved and handled on the backend.",
-          "Rather than treating it as a simple static page, I used the project to practise cleaner frontend structure, reusable layout patterns and connecting a public-facing website to real backend data persistence.",
+          "This project was built as a real production tool for a working tutoring practice. The goal was not just a presentational website, but a complete booking system: parents can select a package, pick an available date and time, submit their details and immediately receive a confirmation email.",
+          "On the backend, the teacher has a password-protected admin panel to view upcoming appointments, update their status and block dates or time ranges to prevent unwanted bookings.",
         ],
       },
       {
         title: "Goals",
         paragraphs: [
-          "The primary goal was to create a site that communicates services clearly and supports a polished professional presence. A second goal was to implement a working contact and booking flow — not just a form that sends an email, but one that saves data to a PostgreSQL database via Prisma.",
-          "I also wanted the project to reflect stronger frontend fundamentals such as responsive design, clear hierarchy and consistent component usage across all pages.",
+          "The primary goal was to build something a real client could use — not a portfolio demo. That meant thinking through the full user journey on both sides: the parent booking a session and the teacher managing their availability and appointments.",
+          "A second goal was to go beyond basic CRUD and implement real production concerns: email delivery, double-booking prevention, rate limiting on the public endpoint and HTTP security headers.",
         ],
       },
       {
         title: "Technical Decisions",
         paragraphs: [
-          "The site was built with a component-based structure so repeated layout patterns and presentation logic remain reusable. API routes handle incoming form submissions, validate the data and persist it to a PostgreSQL database through Prisma ORM.",
-          "Responsive behaviour and content clarity were important priorities. Layout decisions were made to keep the interface readable and consistent across screen sizes while supporting a trustworthy user experience.",
+          "I used Material UI (MUI 7) with Emotion for the component layer, chosen for its accessibility defaults and design consistency across a multi-step flow. Zod handles validation at every API boundary, ensuring invalid payloads never reach the database.",
+          "Resend was chosen for transactional email because of its simple Node.js SDK and reliable delivery. Upstash Redis powers the rate limiter with a sliding-window strategy, and is configured to silently skip rate limiting in local development when env vars are absent.",
         ],
       },
       {
         title: "Challenges",
         paragraphs: [
-          "The main frontend challenge was not technical complexity for its own sake, but creating an interface that feels professional and well-structured rather than generic — requiring careful control of layout, hierarchy, spacing and content presentation.",
-          "On the backend side, the challenge was designing a clean API route for form submission, handling validation errors gracefully and returning clear feedback to the user when a request succeeds or fails.",
+          "The main backend challenge was the booking conflict logic — checking not just for exact duplicate time slots but also for teacher-blocked days and date ranges, all in a single atomic flow before creating the appointment.",
+          "On the frontend, the multi-step wizard required careful state management across steps while keeping each step independently validated, so a parent cannot advance with incomplete data and cannot submit a malformed request even if they bypass the UI.",
         ],
       },
       {
         title: "What This Project Shows",
         paragraphs: [
-          "This project shows that I can build clean, professional frontend experiences for service-oriented websites where communication and trust matter, while also connecting those interfaces to working backend logic and database persistence.",
-          "It reflects a disciplined approach to reusable layout structure, form handling, API integration and maintainable full-stack execution.",
+          "This project shows that I can build a complete, production-oriented full-stack feature — not just connecting a form to a database, but handling the real concerns that come with a public-facing endpoint: conflict detection, rate limiting, transactional email and session-based admin authentication.",
+          "It reflects an engineering mindset focused on correctness and reliability: the booking succeeds or fails for clear, communicated reasons, and every failure path returns a meaningful response rather than a silent error.",
         ],
       },
       {
         title: "Next Improvements",
         paragraphs: [
-          "Future improvements could include an admin dashboard for managing booking requests, email notifications on submission, richer content sections and improved analytics to track user engagement.",
-          "From an engineering perspective, the next step would be to add authentication for the admin area and stronger input validation and rate limiting on the API routes.",
+          "The next logical step is adding a custom verified email domain so booking confirmations arrive from a branded address rather than the Resend sandbox sender.",
+          "Longer term improvements include calendar sync (Google Calendar API), SMS notifications via Twilio and a test suite covering the booking API validation and conflict detection logic.",
         ],
       },
     ],
